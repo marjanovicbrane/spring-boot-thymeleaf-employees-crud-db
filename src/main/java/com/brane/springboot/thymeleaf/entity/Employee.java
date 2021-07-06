@@ -1,10 +1,29 @@
-package com.brane.springboot.thymeleaf.model;
+package com.brane.springboot.thymeleaf.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+//mapping this entity class to table employee from database
+@Entity
+@Table(name="employee")
 public class Employee {
 
+	@Id//primary key
+	@GeneratedValue(strategy=GenerationType.IDENTITY)//auto increment
+	@Column(name="id")//mapping column from db
 	private int id;
+	
+	@Column(name="first_name")
 	private String firstName;
+	
+	@Column(name="last_name")
 	private String lastName;
+	
+	@Column(name="email")
 	private String email;
 	
 	//making default constructor
@@ -15,6 +34,14 @@ public class Employee {
 	//generate constructor with all fields
 	public Employee(int id, String firstName, String lastName, String email) {
 		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+	}
+	
+	//we don't add field id in constructor, because it will be autommacly generated from database
+	//because it is auto increment
+	public Employee(String firstName, String lastName, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
