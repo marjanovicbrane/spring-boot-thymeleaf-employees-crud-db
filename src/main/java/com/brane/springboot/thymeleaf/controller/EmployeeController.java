@@ -1,48 +1,38 @@
 package com.brane.springboot.thymeleaf.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.brane.springboot.thymeleaf.entity.Employee;
+import com.brane.springboot.thymeleaf.service.EmployeeService;
 
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
-
 	
-	private List<Employee> employee;
+	//creating field employeeService.Now we can do contructor injection.
+	private EmployeeService employeeService;
 	
-	//when spring boot create spring bean, then it will be called automatically this metod loadData()
-	@PostConstruct
-	private void loadData() {
-
-		Employee employee1=new Employee(1,"Brane","Marjanovic","marjanovicbrane@bmcompany.com");
-		Employee employee2=new Employee(2,"Elon","Musk","elonmusk@spacex.com");
-		Employee employee3=new Employee(3,"Jeff","Bezos","jeffbezos@amazon.com");
-		Employee employee4=new Employee(4,"Mark","Zuckerberg","markzuckerberg@facebook.com");
-		
-
-		employee=new ArrayList<>();
-		
-		//populate this array list with objects
-		employee.add(employee1);
-		employee.add(employee2);
-		employee.add(employee3);
-		employee.add(employee4);
-		
+	//constructor injection
+	@Autowired
+	public EmployeeController (EmployeeService theEmployeeService) {
+		employeeService=theEmployeeService;
 	}
+	
 	
 	//making request mapping /list and then we will store list of objects into attribute model called employees
 	//this model we will use in our tgymeleaf template to show all data in table with for each loop
 	@GetMapping("/list")
 	public String listEmployees(Model model) {
+		
+		//delegate calls from controller to service layer
+		//get employees from db
+		List<Employee> employee=employeeService.findAll();
 		
 		model.addAttribute("employees", employee);
 		
