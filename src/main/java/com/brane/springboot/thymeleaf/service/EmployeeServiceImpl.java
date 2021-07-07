@@ -29,7 +29,8 @@ private EmployeeRepository employeeRepository;
 		@Override
 		public List<Employee> findAll() {
 			
-			return employeeRepository.findAll();
+			//WE CALLING HERE OUR NEW METHOD FROM JPA REPOSITORY USING SPRING DATA JPA
+			return employeeRepository.findAllByOrderByLastNameAsc();
 		}
 
 

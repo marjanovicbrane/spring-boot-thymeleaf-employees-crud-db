@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.brane.springboot.thymeleaf.entity.Employee;
@@ -49,5 +51,17 @@ public class EmployeeController {
 		model.addAttribute("employee",theEmployee);
 		
 		return "employees/employee-form";
+	}
+	
+	@PostMapping("/save")
+	//data binding using model attribute employee from FORM
+	public String saveEmployee(@ModelAttribute("employee") Employee employee){
+		
+		//save the employee object-delegate calls to the service layer
+		employeeService.save(employee);
+		
+		//use redirect to prevent duplicate submissions.
+		//we are using here POST-REDIRECT-GET PATTERN(PRG)
+		return "redirect:/employees/list";
 	}
 }
