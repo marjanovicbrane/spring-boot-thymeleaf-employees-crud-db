@@ -37,7 +37,7 @@ public class EmployeeController {
 		model.addAttribute("employees", employee);
 		
 		//we'll return list-employees.html thymeleaf template
-		return "list-employees";
+		return "employees/list-employees";
 	}
 	
 }
