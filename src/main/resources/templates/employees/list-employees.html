@@ -59,7 +59,7 @@
 					<!-- Add delete button/link with embedded employee Id -->
 					<a th:href="@{/employees/delete(employeeId=${tempEmployee.id})}"
 					   class="btn btn-danger btn-sm"
-					   onclick="if(!(confirmation('Are you sure you want to delete this employee?'))) return false">
+					   onclick="if(!(confirm('Are you sure you want to delete this employee?'))) return false">
 						Delete
 					</a>
 					
