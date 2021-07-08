@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.brane.springboot.thymeleaf.entity.Employee;
 import com.brane.springboot.thymeleaf.service.EmployeeService;
@@ -63,5 +64,18 @@ public class EmployeeController {
 		//use redirect to prevent duplicate submissions.
 		//we are using here POST-REDIRECT-GET PATTERN(PRG)
 		return "redirect:/employees/list";
+	}
+	
+	@GetMapping("/showFormForUpdate")
+	public String showFormForUpdate(@RequestParam("employeeId") int id, Model model) {
+		
+		//get the employee from the service layer
+		Employee theEmployee=employeeService.findById(id);
+		
+		//set employee as a model attribute to pre-populate the form
+		model.addAttribute("employee", theEmployee);
+		
+		return "employees/employee-form";
+		
 	}
 }
