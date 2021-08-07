@@ -1,4 +1,4 @@
-# Employee Directory app with Thymeleaf template (CRUD)
+# Employee Directory app with Thymeleaf template and all CRUD methods for reading data from the database
 
 To performing all CRUD methods on the database we used SPRING DATA JPA for DAO(Repository) layer.
 
